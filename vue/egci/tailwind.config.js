@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: "jit",
-  content: ["./public/**/*.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {},
   },
@@ -13,6 +12,7 @@ module.exports = {
     logs: true,
     rtl: false,
     themes: [
+      "cmyk",
       "cupcake",
       "light",
       "dark",
@@ -34,7 +34,6 @@ module.exports = {
       "black",
       "luxury",
       "dracula",
-      "cmyk",
       "autumn",
       "business",
       "acid",
