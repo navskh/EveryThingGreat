@@ -15,5 +15,5 @@ export const useBoardStore = defineStore("boardStore", () => {
  * 필요한 애들
  * 1. 카테고리
  * 2. 페이징
- * 그정도?
+ * 3. Board
  */
