@@ -1,5 +1,5 @@
 <template>
-  <ul class="menu bg-base-100 w-56">
+  <ul class="menu menu- bg-base-100 w-56 ma-2">
     <button type="button" class="btn btn-primary w-full mb-6" @click="goWrite">
       글쓰기
     </button>
@@ -33,7 +33,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import menuCategory from "../assets/category";
+
+const route = useRoute();
+const router = useRouter();
 
 const selectPath = ref("/");
 
@@ -44,6 +48,18 @@ const selectCategory = (category) => {
   } else {
     selectPath.value = category.path;
   }
+};
+
+const goWrite = () => {
+  console.log(route.params.nav);
+  const nav = route.path.split("/");
+  nav.shift();
+  router.push({
+    name: "write",
+    params: {
+      nav,
+    },
+  });
 };
 </script>
 
