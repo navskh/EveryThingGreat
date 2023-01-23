@@ -9,10 +9,15 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.13",
+    "@vueup/vue-quill": "^1.0.1",
     "daisyui": "^2.47.0",
+    "heroicons": "^2.0.13",
     "pinia": "^2.0.28",
+    "quill-markdown-shortcuts": "^0.0.10",
     "theme-change": "^2.3.0",
     "vue": "^3.2.45",
+    "vue-quill-editor": "^3.0.6",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
