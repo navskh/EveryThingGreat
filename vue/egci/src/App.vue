@@ -9,9 +9,9 @@ import MenuBar from "./views/MenuBar.vue";
     <NavBar />
     <div class="max-w-[1500px] h-[calc(100vh-90px)] flex m-auto">
       <MenuBar />
+      <RouterView />
     </div>
   </div>
-  <RouterView />
 </template>
 
 <style scoped></style>
