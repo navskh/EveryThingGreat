@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.my-btn {
+  border-radius: 10px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  min-height: 5px;
+}
+
+/* .editor {
+  @apply border-accent-content !important;
+} */
+
+.editor-content {
+  @apply bg-base-100 !important;
+}
+
+.editor-height {
+  @apply bg-base-100 !important;
+  height: calc(65vh - 50px);
+}
+
+.prose > *:not(pre, mark) {
+  @apply text-base-content !important;
+}
+
+.prose > div *:not(pre, mark) {
+  @apply text-base-content;
+}
+
+hr {
+  border-color: hsl(var(--p)) !important;
+}

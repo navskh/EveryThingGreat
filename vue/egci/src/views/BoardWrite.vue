@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-[75%] pb-1">
     <h1 class="font-bold text-3xl py-3">
       <input
         type="text"
@@ -35,11 +35,20 @@
 <script setup>
 import BoardEditor from "@/components/board/BoardEditor.vue";
 import { FolderArrowDownIcon } from "@heroicons/vue/24/outline";
+import { ref } from "vue";
 
 const formatDate = () => {
   var dateData = new Date().toISOString();
   var thisData = dateData?.substring(0, 10).replaceAll("-", ".");
   return thisData;
+};
+
+const content = ref("");
+const headTitle = ref("");
+const author = ref("");
+
+const doSave = () => {
+  console.log("content");
 };
 </script>
 

@@ -1,10 +1,13 @@
 <template>
   <div class="example">
-    <QuillEditor theme="snow" :options="options" />
-
-    <div class="output ql-snow">
-      <div v-html="content"></div>
-    </div>
+    <QuillEditor
+      class="h-[65vh]"
+      theme="snow"
+      :options="options"
+      v-model:content="contentValue"
+      contentType="html"
+      @update:content="updateContent()"
+    />
   </div>
 </template>
 
@@ -14,6 +17,7 @@
 import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import MarkdownShortcuts from "quill-markdown-shortcuts";
+import { ref, watch } from "vue";
 
 Quill.register("modules/markdownShortcuts", MarkdownShortcuts);
 
@@ -44,7 +48,24 @@ const options = {
   },
   placeholder: "Compose an epic...",
   theme: "snow",
+  content: "",
 };
+
+const contentValue = ref(null);
+
+function updateContent() {
+  console.log(contentValue.value);
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: hsl(var(--b3)); /* 또는 트랙에 추가한다 */
+}
+/* 썸(thumb) 추가 */
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--p));
+}
+</style>

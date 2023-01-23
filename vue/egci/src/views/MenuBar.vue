@@ -1,34 +1,42 @@
 <template>
-  <ul class="menu menu- bg-base-100 w-56 ma-2">
-    <button type="button" class="btn btn-primary w-full mb-6" @click="goWrite">
-      글쓰기
-    </button>
-    <li :class="selectPath === '/' && 'bordered'">
-      <router-link
-        :to="{
-          name: 'main',
-          params: { nav: '' },
-          path: '/',
-          query: { page: 1 },
-        }"
-        class="side-link"
-        @click.stop="selectCategory('전체보기')"
-        >전체보기</router-link
+  <div
+    class="SIDEBAR py-4 px-4 mr-3 w-[15rem] text-md text-base-content h-[calc(100vh-140px)]"
+  >
+    <ul class="menu bg-base-100 w-56 ma-2 pb-11 py-2 pl-1">
+      <button
+        type="button"
+        class="btn btn-primary w-full mb-6"
+        @click="goWrite"
       >
-    </li>
-    <li
-      v-for="category in menuCategory"
-      :key="category.name"
-      :class="selectPath === category.path && 'bordered'"
-    >
-      <router-link
-        :to="{ name: 'main', params: category.params, query: { page: 1 } }"
-        class="side-link"
-        @click.stop="selectCategory(category)"
-        >{{ category.name }}</router-link
+        글쓰기
+      </button>
+      <li :class="selectPath === '/' && 'bordered'">
+        <router-link
+          :to="{
+            name: 'main',
+            params: { nav: '' },
+            path: '/',
+            query: { page: 1 },
+          }"
+          class="side-link"
+          @click.stop="selectCategory('전체보기')"
+          >전체보기</router-link
+        >
+      </li>
+      <li
+        v-for="category in menuCategory"
+        :key="category.name"
+        :class="selectPath === category.path && 'bordered'"
       >
-    </li>
-  </ul>
+        <router-link
+          :to="{ name: 'main', params: category.params, query: { page: 1 } }"
+          class="side-link"
+          @click.stop="selectCategory(category)"
+          >{{ category.name }}</router-link
+        >
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
