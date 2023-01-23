@@ -5,6 +5,8 @@ import {
   collection,
   getDocs,
   addDoc,
+  query,
+  where,
 } from "firebase/firestore/lite";
 
 const firebaseConfig = {
@@ -31,22 +33,39 @@ export async function getBoard() {
   boardSnapshot.forEach((doc) => {
     console.log(doc.id, "=>", doc.data());
   });
+
+  return boardSnapshot;
 }
 
 /**
  * Insert 하기
  */
-export async function setBoard() {
-  console.log("set Board! ");
+export async function setBoard(boardData) {
+  console.log("set Board! ", boardData);
 
   try {
-    const docRef = await addDoc(collection(db, "users"), {
-      title: "Ada",
-      content: "Lovelace",
-      author: "YoungMan",
+    const docRef = await addDoc(collection(db, "board"), {
+      idx: boardData.idx,
+      title: boardData.title,
+      content: boardData.content,
+      author: boardData.author,
+      category: boardData.category,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
+}
+
+export async function getMaxID() {
+  console.log("get Max ID");
+  const boardSnapshot = await getDocs(board);
+
+  let maxID = 1;
+  boardSnapshot.forEach((doc) => {
+    console.log(doc.id, "=>", doc.data());
+    maxID = Number(doc.data().idx) + 1;
+  });
+
+  return maxID;
 }

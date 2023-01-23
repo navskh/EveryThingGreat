@@ -20,7 +20,11 @@
               <th class="w-[10%] tracking-widest">작성일</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            <tr v-for="board in boardList" :key="board.idx">
+              <td>{{ board.idx }}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
@@ -28,9 +32,21 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { getBoard } from "../api/firebase";
 
-getBoard();
+const boardList = ref([]);
+
+let boardSnapshot = await getBoard();
+
+let boardSample = [];
+
+boardSnapshot.forEach((board) => {
+  boardSample.push(board.data());
+});
+
+boardList.value = boardSample;
+console.log(boardList.value);
 </script>
 
 <style lang="scss" scoped></style>

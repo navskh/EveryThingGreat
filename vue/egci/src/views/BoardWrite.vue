@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[75%] pb-1">
+  <div class="w-[75%] pb-1 pt-4">
     <h1 class="font-bold text-3xl py-3">
       <input
         type="text"
@@ -36,6 +36,11 @@
 import BoardEditor from "@/components/board/BoardEditor.vue";
 import { FolderArrowDownIcon } from "@heroicons/vue/24/outline";
 import { ref } from "vue";
+import { useBoardStore } from "../stores/boardStore";
+import { BoardModel } from "@/model/board";
+import { setBoard, getMaxID } from "@/api/firebase";
+
+const boardStore = useBoardStore();
 
 const formatDate = () => {
   var dateData = new Date().toISOString();
@@ -43,12 +48,21 @@ const formatDate = () => {
   return thisData;
 };
 
-const content = ref("");
 const headTitle = ref("");
 const author = ref("");
 
-const doSave = () => {
-  console.log("content");
+const doSave = async () => {
+  const maxId = await getMaxID();
+
+  const board = new BoardModel({
+    idx: maxId,
+    title: headTitle.value,
+    content: boardStore.BoardContent,
+    author: author.value,
+  });
+
+  console.log(board.idx, board.title, board.content, board.author);
+  setBoard(board);
 };
 </script>
 

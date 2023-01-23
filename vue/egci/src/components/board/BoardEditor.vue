@@ -17,7 +17,10 @@
 import { QuillEditor, Quill } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import MarkdownShortcuts from "quill-markdown-shortcuts";
-import { ref, watch } from "vue";
+import { ref } from "vue";
+import { useBoardStore } from "@/stores/boardStore";
+
+const boardStore = useBoardStore();
 
 Quill.register("modules/markdownShortcuts", MarkdownShortcuts);
 
@@ -54,7 +57,7 @@ const options = {
 const contentValue = ref(null);
 
 function updateContent() {
-  console.log(contentValue.value);
+  boardStore.updateBoardContent(contentValue.value);
 }
 </script>
 

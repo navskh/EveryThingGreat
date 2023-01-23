@@ -5,9 +5,9 @@
         <router-link to="/" class="font-bold uppercase text-5xl text-primary"
           >EGCI</router-link
         >
-        <p font-family="" class="subpixel-antialiased ml-2 text-secondary">
-          Everything Great<br />
-          Comes from Innerstillness
+        <p class="ml-2 text-secondary font-mono font-bold">
+          Everything Great Comes<br />
+          from Innerstillness
         </p>
       </div>
       <div class="flex-none gap-2">
