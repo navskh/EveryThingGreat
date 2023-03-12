@@ -54,15 +54,19 @@ const author = ref("");
 const doSave = async () => {
   const maxId = await getMaxID();
 
+  let crDate = new Date().toLocaleString();
+
   const board = new BoardModel({
     idx: maxId,
     title: headTitle.value,
     content: boardStore.BoardContent,
     author: author.value,
+    crDate: crDate,
+    modDate: null,
   });
 
   console.log(board.idx, board.title, board.content, board.author);
-  setBoard(board);
+  await setBoard(board);
 };
 </script>
 

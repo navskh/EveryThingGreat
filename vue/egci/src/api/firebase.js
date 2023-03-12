@@ -7,6 +7,7 @@ import {
   addDoc,
   query,
   where,
+  doc,
 } from "firebase/firestore/lite";
 
 const firebaseConfig = {
@@ -30,9 +31,9 @@ const board = collection(db, "board");
 export async function getBoard() {
   const boardSnapshot = await getDocs(board);
 
-  boardSnapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data());
-  });
+  // boardSnapshot.forEach((doc) => {
+  //   console.log(doc.id, "=>", doc.data());
+  // });
 
   return boardSnapshot;
 }
@@ -50,6 +51,8 @@ export async function setBoard(boardData) {
       content: boardData.content,
       author: boardData.author,
       category: boardData.category,
+      crDate: boardData.crDate,
+      modDate: boardData.modDate,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -61,9 +64,10 @@ export async function getMaxID() {
   console.log("get Max ID");
   const boardSnapshot = await getDocs(board);
 
+  console.log(boardSnapshot.docs.filter((doc) => doc.data()));
   let maxID = 1;
   boardSnapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data());
+    // console.log(doc.id, "=>", doc.data());
     maxID = Number(doc.data().idx) + 1;
   });
 

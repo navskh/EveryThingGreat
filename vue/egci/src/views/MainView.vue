@@ -4,14 +4,16 @@
       <div class="TITLE w-full">
         <div class="flex justify-between pr-4 items-center mb-4 mt-8">
           <h1 class="text-2xl font-bold">카테고리</h1>
-          <span class="text-right"><b>0</b>개의 글</span>
+          <span class="text-right"
+            ><b>{{ boardList.length }}</b
+            >개의 글</span
+          >
         </div>
       </div>
       <div
         class="CONTENT w-full overflow-y-auto overflow-x-hidden flex justify-center flex-col"
       >
         <table class="table w-[99%] border-collapse">
-          <!-- head -->
           <thead>
             <tr>
               <th class="tracking-widest w-[60%]">제목</th>
@@ -23,6 +25,8 @@
           <tbody>
             <tr v-for="board in boardList" :key="board.idx">
               <td>{{ board.idx }}</td>
+              <td>ss</td>
+              <td>ss</td>
             </tr>
           </tbody>
         </table>
@@ -32,21 +36,28 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { getBoard } from "../api/firebase";
+import { ref, watchEffect } from "vue";
+import { getBoard, getMaxID } from "../api/firebase";
+import { useBoardStore } from "@/stores/boardStore";
+let boardList = ref([]);
 
-const boardList = ref([]);
+const fetch = async () => {
+  const boardStore = useBoardStore();
+  let boardSnapshot = await getBoard();
 
-let boardSnapshot = await getBoard();
+  let boardSample = [];
 
-let boardSample = [];
+  boardSnapshot.forEach((board) => {
+    boardSample.push(board.data());
+  });
+  boardList.value = boardSample;
+  // console.log(boardList.value);
 
-boardSnapshot.forEach((board) => {
-  boardSample.push(board.data());
-});
+  let maxId = await getMaxID();
+  console.log(maxId);
+};
 
-boardList.value = boardSample;
-console.log(boardList.value);
+watchEffect(fetch);
 </script>
 
 <style lang="scss" scoped></style>
