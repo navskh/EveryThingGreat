@@ -24,9 +24,20 @@
           </thead>
           <tbody>
             <tr v-for="board in boardList" :key="board.idx">
-              <td>{{ board.idx }}</td>
-              <td>ss</td>
-              <td>ss</td>
+              <td>
+                <span class="kbd-xs">{{ board.idx }}</span>
+                <router-link
+                  class="hover:cursor-pointer w-max hover:after:content-['#'] hover:after:ml-2 hover:after:font-semibold hover:after:text-secondary-focus hover:text-secondary-focus"
+                  :to="{
+                    name: 'detail',
+                    params: { id: board.idx },
+                  }"
+                  >{{ board.title }}</router-link
+                >
+              </td>
+              <td>{{ board.author }}</td>
+              <td>22.01.01</td>
+              <td>22.01.01</td>
             </tr>
           </tbody>
         </table>
@@ -36,10 +47,23 @@
 </template>
 
 <script setup>
-import { ref, watchEffect } from "vue";
+import { ref, watchEffect, onMounted } from "vue";
 import { getBoard, getMaxID } from "../api/firebase";
 import { useBoardStore } from "@/stores/boardStore";
+import { storeToRefs } from "pinia";
+
+const boardInfo = useBoardStore();
+
 let boardList = ref([]);
+
+const listInit = () => {
+  boardInfo.fetchBoardList();
+  console.log("init!");
+};
+
+onMounted(() => {
+  listInit();
+});
 
 const fetch = async () => {
   const boardStore = useBoardStore();
@@ -48,13 +72,11 @@ const fetch = async () => {
   let boardSample = [];
 
   boardSnapshot.forEach((board) => {
+    console.log(board.data());
     boardSample.push(board.data());
   });
   boardList.value = boardSample;
   // console.log(boardList.value);
-
-  let maxId = await getMaxID();
-  console.log(maxId);
 };
 
 watchEffect(fetch);

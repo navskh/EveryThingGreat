@@ -64,12 +64,8 @@ export async function getMaxID() {
   console.log("get Max ID");
   const boardSnapshot = await getDocs(board);
 
-  console.log(boardSnapshot.docs.filter((doc) => doc.data()));
-  let maxID = 1;
-  boardSnapshot.forEach((doc) => {
-    // console.log(doc.id, "=>", doc.data());
-    maxID = Number(doc.data().idx) + 1;
-  });
+  let arrIDx = boardSnapshot.docs.map((doc) => doc.data().idx);
+  let maxIdx = Math.max(...arrIDx) + 1;
 
-  return maxID;
+  return maxIdx;
 }
