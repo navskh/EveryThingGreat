@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { getBoard } from "@/api/firebase";
 
 export const useBoardStore = defineStore("boardStore", () => {
   const BoardContent = ref("");
@@ -7,7 +8,13 @@ export const useBoardStore = defineStore("boardStore", () => {
     BoardContent.value = contentValue;
   }
 
-  return { updateBoardContent, BoardContent };
+  const BoardList = ref("");
+  async function fetchBoardList() {
+    BoardList.value = await getBoard();
+    console.log(BoardList);
+  }
+
+  return { updateBoardContent, BoardContent, BoardList, fetchBoardList };
 });
 
 /**
