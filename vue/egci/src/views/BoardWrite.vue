@@ -39,8 +39,15 @@ import { ref } from "vue";
 import { useBoardStore } from "../stores/boardStore";
 import { BoardModel } from "@/model/board";
 import { setBoard, getMaxID } from "@/api/firebase";
+import { sweetalert } from "@/assets/common";
+import { useRoute, useRouter } from "vue-router";
+
+
+const route = useRoute();
+const router = useRouter();
 
 const boardStore = useBoardStore();
+boardStore.updateBoardContent('');
 
 const formatDate = () => {
   var dateData = new Date().toISOString();
@@ -66,7 +73,15 @@ const doSave = async () => {
   });
 
   console.log(board.idx, board.title, board.content, board.author);
-  await setBoard(board);
+  const result = await setBoard(board);
+  if (result) {
+    sweetalert("글이 등록되었습니다!", "success", function () {
+      router.push({ name: "main", params: { nav: "" } });
+    });
+  }
+  else {
+    sweetalert("삭제되는 중 문제가 생겼습니다.!", "warning");
+  }
 };
 </script>
 

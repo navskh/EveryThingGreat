@@ -19,11 +19,11 @@
           </ul>
         </div>
       </div>
-      <h1 class="font-bold text-3xl py-3">title</h1>
+      <h1 class="font-bold text-3xl py-3">{{ board.title }}</h1>
       <div class="flex justify-between items-center border-b-2 pb-2">
         <div class="text-sm">
-          <span class="mr-1">crDate</span>
-          <span class="text-xs"> 마지막으로 수정한 사람 : <span /> </span>
+          <span class="mr-1">{{board.crDate}}</span>
+          <span class="text-xs"> 마지막으로 수정한 사람 : {{ board.author }} </span>
         </div>
         <div>
           <button class="btn btn-ghost btn-sm" @click="doUrlCopy()">
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="ProseMirror prose h-max">
-        <div>content</div>
+        <div v-html="board.content"></div>
       </div>
     </div>
   </div>
@@ -47,11 +47,24 @@
 import { ShareIcon, PencilIcon, TrashIcon } from "@heroicons/vue/24/solid";
 import { useRouter, useRoute } from "vue-router";
 import { sweetalert, sweetconfirm } from "@/assets/common";
+import { getBoardByIdx } from "@/api/firebase";
+import { ref, watchEffect } from "vue";
+import { deletePost } from "@/api/firebase";
 const route = useRoute();
 const router = useRouter();
 
 const id = route.params.id;
 console.log(id);
+
+const board = ref({});
+
+const fetch = async () => {
+  let data = await getBoardByIdx(id);
+  board.value = data;
+};
+
+watchEffect(fetch);
+
 
 const doUrlCopy = () => {
   sweetalert("글 주소가 복사되었습니다!", "success", function () {
@@ -65,6 +78,9 @@ const goEdit = () => {
     params: {
       id: id,
     },
+    query: {
+      board: JSON.stringify(board.value)
+    }
   });
 };
 
@@ -76,12 +92,14 @@ const confirmDelete = () => {
 };
 
 const doDelete = async () => {
-  // var response = await deletePo
-  let response = "";
-  if (response.data.rowsAffected[0] >= 1) {
+  var response = await deletePost(id);
+  if (response == 'success') {
     sweetalert("글이 삭제되었습니다!", "success", function () {
-      router.push({ name: "main", params: { nav: "wonseo" } });
+      router.push({ name: "main", params: { nav: "" } });
     });
+  }
+  else {
+    sweetalert("게시되는 중 문제가 생겼습니다.!", "warning");
   }
 };
 </script>

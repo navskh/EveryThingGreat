@@ -11,6 +11,7 @@ export function sweetalert(textData, iconType, callback) {
   if (iconType == "error") text = "";
   else if (iconType == "success") text = "";
   else if (iconType == "warning") text = "신중하게 생각해 주세요.";
+  else if (iconType == "danger") text = "문제가 생겼습니다.";
 
   swalTailWind
     .fire({

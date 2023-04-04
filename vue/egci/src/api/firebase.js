@@ -8,7 +8,13 @@ import {
   query,
   where,
   doc,
+  deleteDoc,
+  setDoc,
+  getDoc,
+  writeBatch,
+  updateDoc,
 } from "firebase/firestore/lite";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyDNOPkYO72xWicUdH6tSrlt4wLBZ2ltrTo",
@@ -38,12 +44,18 @@ export async function getBoard() {
   return boardSnapshot;
 }
 
+export async function getBoardByIdx(idx) {
+  const snapShot = await getDocs(board);
+
+  let thisData = snapShot.docs.map(doc => doc.data());
+  let filtered = thisData.filter(ele => ele.idx == idx);
+  return filtered[0];
+}
+
 /**
  * Insert 하기
  */
 export async function setBoard(boardData) {
-  console.log("set Board! ", boardData);
-
   try {
     const docRef = await addDoc(collection(db, "board"), {
       idx: boardData.idx,
@@ -54,18 +66,61 @@ export async function setBoard(boardData) {
       crDate: boardData.crDate,
       modDate: boardData.modDate,
     });
-    console.log("Document written with ID: ", docRef.id);
+    return docRef.id ? true : false;
   } catch (e) {
     console.error("Error adding document: ", e);
   }
 }
 
+export async function updateBoard(idx, boardData) {
+  const docId = await getDocIdx(idx);
+  try {
+    const docRef = await updateDoc(doc(db, "board", docId), {
+      idx: boardData.idx,
+      title: boardData.title,
+      content: boardData.content,
+      author: boardData.author,
+      category: boardData.category,
+      crDate: boardData.crDate,
+      modDate: boardData.modDate,
+    });
+
+    return 'success';
+  } catch (e) {
+    console.log("Error adding document: ", e);
+    return 'fail'
+  }
+}
+
 export async function getMaxID() {
-  console.log("get Max ID");
   const boardSnapshot = await getDocs(board);
 
-  let arrIDx = boardSnapshot.docs.map((doc) => doc.data().idx);
-  let maxIdx = Math.max(...arrIDx) + 1;
+  let arrIDx = boardSnapshot.docs.map((doc) => {
+    return doc.data().idx
+  });
 
+  let maxIdx = arrIDx.length == 0 ? 1 : Math.max(...arrIDx) + 1
   return maxIdx;
+}
+
+async function getDocIdx(idx) {
+  const documentation = await getDocs(board)
+  let thisData = documentation.docs.filter((doc) => {
+    return doc.data().idx == idx;
+  });
+  const docID = thisData[0].id;
+  return docID;
+}
+
+
+export async function deletePost(idx) {
+  const docID = await getDocIdx(idx);
+  try {
+    await deleteDoc(doc(db, "board", docID));
+    return 'success';
+  }
+  catch (e) {
+    console.log(e);
+    return 'error';
+  }
 }

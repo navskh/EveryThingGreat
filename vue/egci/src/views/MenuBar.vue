@@ -50,7 +50,6 @@ const router = useRouter();
 const selectPath = ref("/");
 
 const selectCategory = (category) => {
-  console.log(category);
   if (category == "전체보기") {
     selectPath.value = "/";
   } else {

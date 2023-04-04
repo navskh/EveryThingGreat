@@ -18,7 +18,6 @@
             <tr>
               <th class="tracking-widest w-[60%]">제목</th>
               <th class="w-[15%] tracking-widest">작성자</th>
-              <th class="w-[10%] tracking-widest">수정일</th>
               <th class="w-[10%] tracking-widest">작성일</th>
             </tr>
           </thead>
@@ -36,8 +35,7 @@
                 >
               </td>
               <td>{{ board.author }}</td>
-              <td>22.01.01</td>
-              <td>22.01.01</td>
+              <td>{{ board.crDate }}</td>
             </tr>
           </tbody>
         </table>
@@ -72,11 +70,9 @@ const fetch = async () => {
   let boardSample = [];
 
   boardSnapshot.forEach((board) => {
-    console.log(board.data());
     boardSample.push(board.data());
   });
   boardList.value = boardSample;
-  // console.log(boardList.value);
 };
 
 watchEffect(fetch);

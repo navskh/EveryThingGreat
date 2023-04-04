@@ -54,7 +54,7 @@ const options = {
   content: "",
 };
 
-const contentValue = ref(null);
+const contentValue = ref(boardStore.BoardContent);
 
 function updateContent() {
   boardStore.updateBoardContent(contentValue.value);
