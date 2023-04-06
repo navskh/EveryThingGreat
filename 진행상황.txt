@@ -21,4 +21,27 @@
 
 위부분을 진행하면 됨.
 
+
+2023-04-06
+
+Store 관리 방침
+
+1. 처음에 모든 data를 다 가져온다. (1회)
+2. 그 다음 해당 data를 filtering을 실행한다. 
+  - category
+  - page
   
+3. 만약에 search flag가 1이면 바꾸기.
+
+이렇게 잡으면 될 것 같다..
+생각보다 category가 depth가 없으므로 기존 treasureblog보다는 편할 것 같다.
+
+순서 
+# 일단 그러면 가져오는 부분을 store로 빼보자. 
+# treasure blog는 어떻게 만들었는가 한번 살펴보자.
+# 일단 fetch 하는 부분이 있고, 이를 MainView 에서 Mount할 때 가져오도록 만들었음
+-- 오케이 여기까지 완료
+
+# 이제 category filter 걸어보자 
+# 그럴러면, category 가 작성할 때 들어갈 수 있어야 함.
+# 그 다음, category 를  watch 하여 filter를 걸어줘야 한다.

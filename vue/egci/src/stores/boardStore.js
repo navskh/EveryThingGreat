@@ -11,7 +11,14 @@ export const useBoardStore = defineStore("boardStore", () => {
   const BoardList = ref("");
   async function fetchBoardList() {
     BoardList.value = await getBoard();
-    console.log(BoardList);
+  }
+
+  const SelectedCategory = ref("");
+  function changeCategory(category) {
+    SelectedCategory.value = category;
+
+    console.log(BoardList.value);
+    console.log(SelectedCategory.value);
   }
 
   return { updateBoardContent, BoardContent, BoardList, fetchBoardList };

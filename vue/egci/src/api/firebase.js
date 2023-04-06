@@ -36,12 +36,11 @@ const board = collection(db, "board");
  */
 export async function getBoard() {
   const boardSnapshot = await getDocs(board);
-
-  // boardSnapshot.forEach((doc) => {
-  //   console.log(doc.id, "=>", doc.data());
-  // });
-
-  return boardSnapshot;
+  let boardSample = [];
+  boardSnapshot.forEach((board) => {
+    boardSample.push(board.data());
+  });
+  return boardSample;
 }
 
 export async function getBoardByIdx(idx) {

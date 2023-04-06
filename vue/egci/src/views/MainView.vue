@@ -22,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="board in boardList" :key="board.idx">
+            <tr v-for="board in boardInfo.BoardList" :key="board.idx">
               <td>
                 <span class="kbd-xs">{{ board.idx }}</span>
                 <router-link
@@ -54,28 +54,15 @@ const boardInfo = useBoardStore();
 
 let boardList = ref([]);
 
-const listInit = () => {
-  boardInfo.fetchBoardList();
+const listInit = async () => {
   console.log("init!");
+  await boardInfo.fetchBoardList();
+  console.log(boardInfo.BoardList);
 };
 
 onMounted(() => {
   listInit();
 });
-
-const fetch = async () => {
-  const boardStore = useBoardStore();
-  let boardSnapshot = await getBoard();
-
-  let boardSample = [];
-
-  boardSnapshot.forEach((board) => {
-    boardSample.push(board.data());
-  });
-  boardList.value = boardSample;
-};
-
-watchEffect(fetch);
 </script>
 
 <style lang="scss" scoped></style>
