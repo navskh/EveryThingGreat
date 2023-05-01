@@ -28,9 +28,9 @@ Store 관리 방침
 
 1. 처음에 모든 data를 다 가져온다. (1회)
 2. 그 다음 해당 data를 filtering을 실행한다. 
-  - category
-  - page
-  
+    - category
+    - page
+    
 3. 만약에 search flag가 1이면 바꾸기.
 
 이렇게 잡으면 될 것 같다..
