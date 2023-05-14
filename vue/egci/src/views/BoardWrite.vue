@@ -18,8 +18,11 @@
                     class="input rounded-md input-ghost w-full input-sm"
                     placeholder="작성자(닉네임)을 입력하세요"
                 />
-                <select class="select select-sm ml-2 max-w-xs">
-                    <option selected>카테고리를 선택하세요</option>
+                <select
+                    v-model="category"
+                    class="select select-sm ml-2 max-w-xs"
+                >
+                    <option value="" selected>카테고리를 선택하세요</option>
                     <option
                         v-for="menu of menuCategory"
                         :value="menu.params.nav"
@@ -66,11 +69,14 @@ const formatDate = () => {
 
 const headTitle = ref("");
 const author = ref("");
+const category = ref("");
 
 const doSave = async () => {
     const maxId = await getMaxID();
 
     let crDate = new Date().toLocaleString();
+
+    console.log(category);
 
     const board = new BoardModel({
         idx: maxId,
@@ -78,10 +84,11 @@ const doSave = async () => {
         content: boardStore.BoardContent,
         author: author.value,
         crDate: crDate,
+        category: category.value,
         modDate: null,
     });
 
-    console.log(board.idx, board.title, board.content, board.author);
+    console.log(board);
     const result = await setBoard(board);
     if (result) {
         sweetalert("글이 등록되었습니다!", "success", function () {

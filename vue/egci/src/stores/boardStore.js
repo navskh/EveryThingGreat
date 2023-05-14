@@ -3,25 +3,41 @@ import { defineStore } from "pinia";
 import { getBoard } from "@/api/firebase";
 
 export const useBoardStore = defineStore("boardStore", () => {
-  const BoardContent = ref("");
-  function updateBoardContent(contentValue) {
-    BoardContent.value = contentValue;
-  }
+    const BoardContent = ref("");
+    function updateBoardContent(contentValue) {
+        BoardContent.value = contentValue;
+    }
 
-  const BoardList = ref("");
-  async function fetchBoardList() {
-    BoardList.value = await getBoard();
-  }
+    const BoardList = ref("");
+    const FilteredList = ref("")
+    async function fetchBoardList() {
+        BoardList.value = await getBoard();
+    }
 
-  const SelectedCategory = ref("");
-  function changeCategory(category) {
-    SelectedCategory.value = category;
+    const SelectedCategory = ref("");
+    function changeCategory(category) {
+        const selectedValue = category.params.nav;
+        SelectedCategory.value = selectedValue;
+        if(selectedValue == "") {
+            FilteredList.value = BoardList.value;
+        }
+        else {
+            FilteredList.value = BoardList.value.filter(
+                (ele) => ele.category == selectedValue
+            );
+        }
+        console.log(FilteredList.value);
+        console.log(selectedValue);
+    }
 
-    console.log(BoardList.value);
-    console.log(SelectedCategory.value);
-  }
-
-  return { updateBoardContent, BoardContent, BoardList, fetchBoardList };
+    return {
+        updateBoardContent,
+        BoardContent,
+        BoardList,
+        FilteredList,
+        fetchBoardList,
+        changeCategory,
+    };
 });
 
 /**

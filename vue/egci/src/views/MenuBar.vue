@@ -47,17 +47,25 @@
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import menuCategory from "../assets/category";
+import { useBoardStore } from "@/stores/boardStore";
 
 const route = useRoute();
 const router = useRouter();
 
 const selectPath = ref("/");
 
+const boardInfo = useBoardStore();
+
 const selectCategory = (category) => {
+    console.log(category);
     if (category == "전체보기") {
         selectPath.value = "/";
+        boardInfo.changeCategory({
+            params: { nav: "" },
+        });
     } else {
         selectPath.value = category.path;
+        boardInfo.changeCategory(category);
     }
 };
 
