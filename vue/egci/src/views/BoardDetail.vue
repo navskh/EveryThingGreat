@@ -30,7 +30,7 @@
                     </button>
                 </div>
             </div>
-            <div class="ProseMirror prose h-max">
+            <div class="ProseMirror prose">
                 <div v-html="board.content"></div>
             </div>
         </div>
@@ -105,5 +105,10 @@ const doDelete = async () => {
 }
 .DETAIL::-webkit-scrollbar-track {
     background-color: rgba(255, 255, 255, 0);
+}
+
+.prose {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 </style>

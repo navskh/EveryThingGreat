@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.0.13",
+    "@tailwindcss/typography": "^0.5.9",
     "@vueup/vue-quill": "^1.0.1",
     "daisyui": "^2.47.0",
     "firebase": "^9.16.0",

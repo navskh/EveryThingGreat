@@ -7,6 +7,8 @@ import router from "./router";
 import "./index.css";
 import "./assets/tailwind.css";
 // import "./assets/main.css";
+import "./assets/@tailwind/typography.css";
+
 
 const app = createApp(App);
 

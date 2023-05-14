@@ -63,6 +63,7 @@ const boardInfo = useBoardStore();
 
 const listInit = async () => {
     await boardInfo.fetchBoardList();
+    await boardInfo.changeCategory("");
 };
 
 onMounted(() => {

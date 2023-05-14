@@ -40,7 +40,7 @@
                 </button>
             </div>
         </div>
-        <BoardEditor />
+        <BoardEditor class="prose" />
     </div>
 </template>
 

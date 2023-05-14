@@ -35,3 +35,8 @@
 hr {
   border-color: hsl(var(--p)) !important;
 }
+
+.prose {
+    /* font-family: 'Nanum Gothic Coding', monospace; */
+    font-family: 'Nanum Myeongjo', serif;
+}
