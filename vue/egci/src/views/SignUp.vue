@@ -14,7 +14,7 @@
                 <label class="label" for="password">비밀번호</label>
                 <input class="input input-bordered" type="password" id="password" name="password" v-model="password" />
             </div>
-            <button class="btn btn-primary mt-6 w-full" @click="signUp">
+            <button class="btn btn-primary mt-6 w-full" @click="doSignUp">
                 회원가입
             </button>
             <router-link to="/login">
@@ -27,18 +27,34 @@
 </template>
 
 <script setup>
+import { getAuthErrorMessage } from '@/api/auth';
+import { signUp } from '@/api/auth';
 import { ref } from 'vue';
+import { useAuthStore } from "../stores/authStore";
+import { useRoute, useRouter } from "vue-router";
+
+const router = useRouter();
 
 const username = ref('');
 const email = ref('');
 const password = ref('');
 
-const signUp = () => {
-    console.log(
-        username.value,
-        email.value,
-        password.value
-    )
+const authInfo = useAuthStore();
+
+const doSignUp = async () => {
+    try {
+        const user = await signUp({ email: email.value, password: password.value, username: username.value });
+        console.log(user);
+        authInfo.setIsLogin(user);
+        alert('회원가입이 완료되었습니다.');
+        router.push({
+            name: "home",
+        });
+    } catch (error) {
+        const message = getAuthErrorMessage(error.code);
+        alert(message)
+    }
+
 }
 
 </script>

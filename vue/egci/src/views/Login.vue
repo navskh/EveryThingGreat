@@ -2,39 +2,54 @@
     <div class="login-page">
         <div class="login-form w-1/3">
             <h1 class="text-2xl mb-6">로그인</h1>
-            <form>
-                <div class="form-control">
-                    <label class="label" for="username">아이디</label>
-                    <input
-                        class="input input-bordered"
-                        type="text"
-                        id="username"
-                        name="username"
-                    />
-                </div>
-                <div class="form-control">
-                    <label class="label" for="password">비밀번호</label>
-                    <input
-                        class="input input-bordered"
-                        type="password"
-                        id="password"
-                        name="password"
-                    />
-                </div>
-                <button class="btn btn-primary mt-6 w-full" type="submit">
-                    로그인
+            <div class="form-control">
+                <label class="label" for="email">아이디(이메일)</label>
+                <input class="input input-bordered" type="text" id="email" name="email" v-model="email" />
+            </div>
+            <div class="form-control">
+                <label class="label" for="password">비밀번호</label>
+                <input class="input input-bordered" type="password" id="password" name="password" v-model="password"
+                    @keyup.enter="Login()" />
+            </div>
+            <button class="btn btn-primary mt-6 w-full" @click="Login">
+                로그인
+            </button>
+            <router-link to="/signup">
+                <button class="btn btn-outline mt-4 w-full">
+                    회원가입
                 </button>
-                <router-link to="/signup">
-                    <button class="btn btn-outline mt-4 w-full">
-                        회원가입
-                    </button>
-                </router-link>
-            </form>
+            </router-link>
         </div>
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { getAuthErrorMessage, signIn } from "@/api/auth";
+import { ref } from "vue";
+import { useAuthStore } from "../stores/authStore";
+import { useRoute, useRouter } from "vue-router";
+const router = useRouter();
+
+const email = ref("");
+const password = ref("");
+const authInfo = useAuthStore();
+
+
+const Login = async () => {
+    try {
+        const user = await signIn({ email: email.value, password: password.value });
+        console.log(user);
+        authInfo.setIsLogin(user);
+        alert('로그인 되었습니다.');
+        router.push({
+            name: "home",
+        });
+    } catch (error) {
+        const message = getAuthErrorMessage(error.code);
+        alert(message)
+    }
+}
+</script>
 
 <style>
 .login-page {
