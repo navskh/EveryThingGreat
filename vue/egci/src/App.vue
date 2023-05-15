@@ -2,17 +2,23 @@
 import { RouterView } from "vue-router";
 import NavBar from "./views/NavBar.vue";
 import MenuBar from "./views/MenuBar.vue";
-import MainView from "./views/MainView.vue";
+import PostList from "./views/PostList.vue";
+import MainStack from "./stack/MainStack.vue";
+import AuthStack from "./stack/AuthStack.vue";
+import { useAuthStore } from "./stores/authStore";
+
+const authInfo = useAuthStore();
+
+console.log(authInfo.isLogin);
 </script>
 
 <template>
-  <div class="relative h-screen overflow-hidden">
-    <NavBar />
-    <div class="max-w-[1500px] h-[calc(100vh-90px)] flex m-auto">
-      <MenuBar />
-      <RouterView />
+    <div v-if="!authInfo.isLogin">
+        <AuthStack />
     </div>
-  </div>
+    <div v-else>
+        <MainStack />
+    </div>
 </template>
 
 <style scoped></style>

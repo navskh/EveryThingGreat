@@ -16,7 +16,10 @@ export const useBoardStore = defineStore("boardStore", () => {
 
     const SelectedCategory = ref("");
     function changeCategory(category) {
-        if (category == "") FilteredList.value = BoardList.value;
+        if (category == "") {
+            FilteredList.value = BoardList.value;
+            return;
+        }
         const selectedValue = category.params.nav;
         SelectedCategory.value = selectedValue;
         if(selectedValue == "") {
