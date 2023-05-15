@@ -40,9 +40,9 @@
 import { ShareIcon, PencilIcon, TrashIcon } from "@heroicons/vue/24/solid";
 import { useRouter, useRoute } from "vue-router";
 import { sweetalert, sweetconfirm } from "@/assets/common";
-import { getBoardByIdx } from "@/api/firebase";
+import { getBoardByIdx } from "@/api/post";
 import { ref, watchEffect } from "vue";
-import { deletePost } from "@/api/firebase";
+import { deletePost } from "@/api/post";
 const route = useRoute();
 const router = useRouter();
 

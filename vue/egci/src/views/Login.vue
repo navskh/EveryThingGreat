@@ -1,6 +1,6 @@
 <template>
     <div class="login-page">
-        <div class="login-form w-1/2">
+        <div class="login-form w-1/3">
             <h1 class="text-2xl mb-6">로그인</h1>
             <form>
                 <div class="form-control">

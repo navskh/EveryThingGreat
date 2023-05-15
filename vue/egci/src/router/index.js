@@ -4,6 +4,7 @@ import BoardDetail from "../views/BoardDetail.vue";
 import BoardWrite from "../views/BoardWrite.vue";
 import BoardEdit from "../views/BoardEdit.vue";
 import Login from "../views/Login.vue";
+import SignUp from '../views/SignUp.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,11 @@ const router = createRouter({
             name: "login",
             component: Login,
         },
+        {
+          path: "/signup",
+          name: "signup",
+          component: SignUp,
+      },
         {
             path: "/:nav*",
             name: "main",

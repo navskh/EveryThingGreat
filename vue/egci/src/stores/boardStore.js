@@ -1,6 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { getBoard } from "@/api/firebase";
+import { getBoard } from "@/api/post";
 
 export const useBoardStore = defineStore("boardStore", () => {
     const BoardContent = ref("");

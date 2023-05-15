@@ -50,7 +50,7 @@
 <script setup>
 import { ref, watchEffect, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getBoard, getMaxID } from "../api/firebase";
+import { getBoard, getMaxID } from "../api/post"
 import { useBoardStore } from "@/stores/boardStore";
 import { storeToRefs } from "pinia";
 

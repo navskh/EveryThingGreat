@@ -50,7 +50,7 @@ import { FolderArrowDownIcon } from "@heroicons/vue/24/outline";
 import { ref } from "vue";
 import { useBoardStore } from "../stores/boardStore";
 import { BoardModel } from "@/model/board";
-import { setBoard, getMaxID, updateBoard } from "@/api/firebase";
+import { setBoard, getMaxID, updateBoard } from "@/api/post"
 import { sweetalert } from "@/assets/common";
 import { useRoute, useRouter } from "vue-router";
 import menuCategory from "../assets/category";
