@@ -9,10 +9,10 @@ import "./assets/tailwind.css";
 // import "./assets/main.css";
 import "./assets/@tailwind/typography.css";
 
-
 const app = createApp(App);
 
 app.use(createPinia());
+
 app.use(router);
 
 app.mount("#app");

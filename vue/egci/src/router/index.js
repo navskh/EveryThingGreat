@@ -4,7 +4,7 @@ import BoardDetail from "../views/BoardDetail.vue";
 import BoardWrite from "../views/BoardWrite.vue";
 import BoardEdit from "../views/BoardEdit.vue";
 import Login from "../views/Login.vue";
-import SignUp from '../views/SignUp.vue';
+import SignUp from "../views/SignUp.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +12,10 @@ const router = createRouter({
         {
             path: "/",
             name: "home",
-            component: PostList,
+            components: {
+                default: PostList,
+                login: Login,
+            },
         },
         {
             path: "/login",
@@ -20,10 +23,10 @@ const router = createRouter({
             component: Login,
         },
         {
-          path: "/signup",
-          name: "signup",
-          component: SignUp,
-      },
+            path: "/signup",
+            name: "signup",
+            component: SignUp,
+        },
         {
             path: "/:nav*",
             name: "main",
@@ -43,6 +46,16 @@ const router = createRouter({
             path: "/:nav*/write/:id",
             name: "edit",
             component: BoardEdit,
+        },
+        {
+            path: "/login",
+            name: "login",
+            component: Login,
+        },
+        {
+            path: "/signup",
+            name: "signup",
+            component: SignUp,
         },
     ],
 });
