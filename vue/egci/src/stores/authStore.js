@@ -11,6 +11,11 @@ export const useAuthStore = defineStore("authStore", () => {
         isLogin.value = true;
         thisUser.value = user;
     }
+    
+    async function setIsLogout() {
+      isLogin.value = false;
+      thisUser.value = {};
+  }
 
     const router = useRouter();
     const unsubscribe = onAuthStateChanged((user) => {
@@ -23,5 +28,5 @@ export const useAuthStore = defineStore("authStore", () => {
         }
     });
 
-    return { setIsLogin, isLogin };
+    return { setIsLogout, setIsLogin, isLogin };
 });
