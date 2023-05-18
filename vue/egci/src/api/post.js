@@ -13,6 +13,7 @@ import {
     getDoc,
     writeBatch,
     updateDoc,
+    orderBy,
 } from "firebase/firestore/lite";
 
 const firebaseConfig = {
@@ -34,11 +35,13 @@ const board = collection(db, "board");
  * 모든 문서의 정보 가져오기
  */
 export async function getBoard() {
-    const boardSnapshot = await getDocs(board);
+    const boardSnapshot = await getDocs(query(board, orderBy("idx", "desc")));
     let boardSample = [];
     boardSnapshot.forEach((board) => {
         boardSample.push(board.data());
     });
+
+    console.log(boardSample);
     return boardSample;
 }
 
