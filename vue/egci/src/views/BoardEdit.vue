@@ -81,6 +81,7 @@ const doSave = async () => {
         content: boardStore.BoardContent,
         author: author.value,
         crDate: crDate,
+        category: category.value,
         modDate: new Date().toLocaleString(),
     });
 
