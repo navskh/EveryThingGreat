@@ -5,7 +5,16 @@
   3. 카테고리
  */
 export class BoardModel {
-    constructor({ idx, title, content, category, author, crDate, modDate }) {
+    constructor({
+        idx,
+        title,
+        content,
+        category,
+        author,
+        crDate,
+        modDate,
+        isNotice,
+    }) {
         this.idx = idx;
         this.title = title ?? "";
         this.content = content ?? "";
@@ -13,5 +22,6 @@ export class BoardModel {
         this.author = author ?? "";
         this.crDate = crDate;
         this.modDate = modDate;
+        this.isNotice = isNotice ?? false;
     }
 }

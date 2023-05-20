@@ -37,12 +37,17 @@ const board = collection(db, "board");
 export async function getBoard() {
     const boardSnapshot = await getDocs(query(board, orderBy("idx", "desc")));
     let boardSample = [];
+    let noticeSample = [];
     boardSnapshot.forEach((board) => {
-        boardSample.push(board.data());
+        const thisData = board.data();
+        if (thisData.isNotice) {
+            noticeSample.push(board.data());
+        } else {
+            boardSample.push(board.data());
+        }
     });
 
-    console.log(boardSample);
-    return boardSample;
+    return { noticeSample, boardSample };
 }
 
 export async function getBoardByIdx(idx) {
@@ -84,6 +89,7 @@ export async function updateBoard(idx, boardData) {
             category: boardData.category,
             crDate: boardData.crDate,
             modDate: boardData.modDate,
+            isNotice: boardData.isNotice,
         });
 
         return "success";

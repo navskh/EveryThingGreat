@@ -23,6 +23,25 @@
                     </thead>
                     <tbody>
                         <tr
+                            v-for="(board, index) in boardInfo.NoticeList"
+                            :key="board.idx"
+                            class="font-bold"
+                        >
+                            <td>
+                                <span class="kbd-xs">공지</span>
+                                <router-link
+                                    class="hover:cursor-pointer w-max hover:after:content-['#'] hover:after:ml-2 hover:after:font-semibold hover:after:text-secondary-focus hover:text-secondary-focus"
+                                    :to="{
+                                        name: 'detail',
+                                        params: { id: board.idx },
+                                    }"
+                                    >{{ board.title }}</router-link
+                                >
+                            </td>
+                            <td>{{ board.author }}</td>
+                            <td>{{ board.crDate }}</td>
+                        </tr>
+                        <tr
                             v-for="(board, index) in boardInfo.FilteredList"
                             :key="board.idx"
                         >
@@ -50,7 +69,7 @@
 <script setup>
 import { ref, watchEffect, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getBoard, getMaxID } from "../api/post"
+import { getBoard, getMaxID } from "../api/post";
 import { useBoardStore } from "@/stores/boardStore";
 import { storeToRefs } from "pinia";
 

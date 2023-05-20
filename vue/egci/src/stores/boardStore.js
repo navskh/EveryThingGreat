@@ -10,8 +10,11 @@ export const useBoardStore = defineStore("boardStore", () => {
 
     const BoardList = ref("");
     const FilteredList = ref("")
+    const NoticeList = ref("");
     async function fetchBoardList() {
-        BoardList.value = await getBoard();
+        const { noticeSample, boardSample } = await getBoard();
+        BoardList.value = boardSample;
+        NoticeList.value = noticeSample;
     }
 
     const SelectedCategory = ref("");
@@ -22,10 +25,9 @@ export const useBoardStore = defineStore("boardStore", () => {
         }
         const selectedValue = category.params.nav;
         SelectedCategory.value = selectedValue;
-        if(selectedValue == "") {
+        if (selectedValue == "") {
             FilteredList.value = BoardList.value;
-        }
-        else {
+        } else {
             FilteredList.value = BoardList.value.filter(
                 (ele) => ele.category == selectedValue
             );
@@ -41,6 +43,7 @@ export const useBoardStore = defineStore("boardStore", () => {
         FilteredList,
         fetchBoardList,
         changeCategory,
+        NoticeList,
     };
 });
 

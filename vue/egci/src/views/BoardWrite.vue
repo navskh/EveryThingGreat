@@ -30,6 +30,15 @@
                         {{ menu.name }}
                     </option>
                 </select>
+                <label class="flex cursor-pointer ml-4">
+                    <span class="label-text w-10">공지</span>
+                    <input
+                        type="checkbox"
+                        checked="checked"
+                        class="checkbox checkbox-primary"
+                        v-model="isNotice"
+                    />
+                </label>
             </div>
             <div>
                 <button
@@ -47,10 +56,10 @@
 <script setup>
 import BoardEditor from "@/components/board/BoardEditor.vue";
 import { FolderArrowDownIcon } from "@heroicons/vue/24/outline";
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { useBoardStore } from "../stores/boardStore";
 import { BoardModel } from "@/model/board";
-import { setBoard, getMaxID } from "@/api/post"
+import { setBoard, getMaxID } from "@/api/post";
 import { sweetalert } from "@/assets/common";
 import { useRoute, useRouter } from "vue-router";
 import menuCategory from "../assets/category";
@@ -70,13 +79,12 @@ const formatDate = () => {
 const headTitle = ref("");
 const author = ref("");
 const category = ref("");
+const isNotice = ref(false);
 
 const doSave = async () => {
     const maxId = await getMaxID();
 
     let crDate = new Date().toLocaleString();
-
-    console.log(category);
 
     const board = new BoardModel({
         idx: maxId,
@@ -86,6 +94,7 @@ const doSave = async () => {
         crDate: crDate,
         category: category.value,
         modDate: null,
+        isNotice: isNotice.value,
     });
 
     console.log(board);

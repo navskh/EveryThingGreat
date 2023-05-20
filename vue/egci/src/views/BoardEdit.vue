@@ -30,6 +30,15 @@
                         {{ menu.name }}
                     </option>
                 </select>
+                <label class="flex cursor-pointer ml-4">
+                    <span class="label-text w-10">공지</span>
+                    <input
+                        type="checkbox"
+                        checked="checked"
+                        class="checkbox checkbox-primary"
+                        v-model="isNotice"
+                    />
+                </label>
             </div>
             <div>
                 <button
@@ -50,7 +59,7 @@ import { FolderArrowDownIcon } from "@heroicons/vue/24/outline";
 import { ref } from "vue";
 import { useBoardStore } from "../stores/boardStore";
 import { BoardModel } from "@/model/board";
-import { setBoard, getMaxID, updateBoard } from "@/api/post"
+import { setBoard, getMaxID, updateBoard } from "@/api/post";
 import { sweetalert } from "@/assets/common";
 import { useRoute, useRouter } from "vue-router";
 import menuCategory from "../assets/category";
@@ -71,6 +80,7 @@ const formatDate = () => {
 const headTitle = ref(data?.title);
 const author = ref(data?.author);
 const category = ref(data?.category);
+const isNotice = ref(data?.isNotice ?? false);
 
 const doSave = async () => {
     let crDate = data.crDate;
@@ -83,6 +93,7 @@ const doSave = async () => {
         crDate: crDate,
         category: category.value,
         modDate: new Date().toLocaleString(),
+        isNotice: isNotice.value,
     });
 
     const result = await updateBoard(data.idx, board);

@@ -4,7 +4,9 @@
             class="DETAIL max-w-[calc(1500px-18rem)] h-full pb-1 overflow-y-scroll pr-3"
             @scroll="showTopBtn"
         >
-            <h1 class="font-bold text-3xl py-3">{{ board.title }}</h1>
+            <h1 class="font-bold text-3xl py-3">
+                {{ board.isNotice ? "[공지]" : "" }} {{ board.title }}
+            </h1>
             <div class="flex justify-between items-center border-b-2 pb-2">
                 <div class="text-sm">
                     <span class="mr-1">{{ board.crDate }}</span>
@@ -47,7 +49,6 @@ const route = useRoute();
 const router = useRouter();
 
 const id = route.params.id;
-console.log(id);
 
 const board = ref({});
 
