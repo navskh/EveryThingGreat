@@ -2,6 +2,7 @@
     <div class="w-[75%] min-w-[1000px] h-full overflow-y-auto">
         <div class="CONTAINER flex flex-col items-center justify-center pb-4">
             <div class="TITLE w-full">
+              <commit-table></commit-table>
                 <div class="flex justify-between pr-4 items-center mb-4 mt-8">
                     <h1 class="text-2xl font-bold">카테고리</h1>
                     <span class="text-right"
@@ -72,6 +73,7 @@ import { useRoute, useRouter } from "vue-router";
 import { getBoard, getMaxID } from "../api/post";
 import { useBoardStore } from "@/stores/boardStore";
 import { storeToRefs } from "pinia";
+import CommitTable from '../components/board/CommitTable.vue'
 
 const route = useRoute();
 const router = useRouter();
