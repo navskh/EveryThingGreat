@@ -9,7 +9,7 @@ export const useBoardStore = defineStore("boardStore", () => {
     }
 
     const BoardList = ref("");
-    const FilteredList = ref("")
+    const FilteredList = ref("");
     const NoticeList = ref("");
     async function fetchBoardList() {
         const { noticeSample, boardSample } = await getBoard();

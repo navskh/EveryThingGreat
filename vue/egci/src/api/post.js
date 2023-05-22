@@ -50,6 +50,28 @@ export async function getBoard() {
     return { noticeSample, boardSample };
 }
 
+/**
+ *
+ */
+export async function getCommitDate() {
+    const boardSnapshot = await getDocs(query(board, orderBy("idx", "desc")));
+    let returnArr = [];
+    boardSnapshot.forEach((board) => {
+        const thisData = board.data();
+        const thisCrDate = thisData.crDate;
+        const parts = thisCrDate.split(".");
+        const datePart = parts.slice(0, 3).join(".");
+        returnArr.push(datePart);
+    });
+
+    return returnArr;
+}
+
+/**
+ * 특정 게시물 내용 가져오기
+ * @param {*} idx
+ * @returns
+ */
 export async function getBoardByIdx(idx) {
     const snapShot = await getDocs(board);
 
