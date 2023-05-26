@@ -49,8 +49,8 @@
                 </button>
             </div>
         </div>
-        <BoardEditor />
-    </div>
+            <BoardEditor class="EDIT" />
+        </div>
 </template>
 
 <script setup>
@@ -107,4 +107,18 @@ const doSave = async () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.EDIT::-webkit-scrollbar {
+    width: 5px;
+}
+
+.EDIT::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    background-color: hsl(var(--p));
+    border-radius: 20px;
+}
+
+.EDIT::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0);
+}
+</style>

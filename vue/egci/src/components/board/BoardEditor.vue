@@ -1,14 +1,14 @@
 <template>
-  <div class="example">
-    <QuillEditor
-      class="h-[65vh]"
-      theme="snow"
-      :options="options"
-      v-model:content="contentValue"
-      contentType="html"
-      @update:content="updateContent()"
-    />
-  </div>
+    <div class="example">
+        <QuillEditor
+            class="h-[65vh]"
+            theme="snow"
+            :options="options"
+            v-model:content="contentValue"
+            contentType="html"
+            @update:content="updateContent()"
+        />
+    </div>
 </template>
 
 <script setup>
@@ -25,50 +25,40 @@ const boardStore = useBoardStore();
 Quill.register("modules/markdownShortcuts", MarkdownShortcuts);
 
 const toolbarOptions = [
-  ["bold", "italic", "underline", "strike"], // toggled buttons
-  ["blockquote", "code-block"],
+    ["bold", "italic", "underline", "strike"], // toggled buttons
+    ["blockquote", "code-block"],
 
-  [{ header: 1 }, { header: 2 }], // custom button values
-  [{ list: "ordered" }, { list: "bullet" }],
-  [{ script: "sub" }, { script: "super" }], // superscript/subscript
-  [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-  [{ direction: "rtl" }], // text direction
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ script: "sub" }, { script: "super" }], // superscript/subscript
+    [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+    [{ direction: "rtl" }], // text direction
 
-  [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+    [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-  [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-  [{ font: [] }],
-  [{ align: [] }],
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
 
-  ["clean"], // remove formatting button
+    ["clean"], // remove formatting button
 ];
 
 const options = {
-  modules: {
-    toolbar: toolbarOptions,
-    markdownShortcuts: {},
-  },
-  placeholder: "Compose an epic...",
-  theme: "snow",
-  content: "",
+    modules: {
+        toolbar: toolbarOptions,
+        markdownShortcuts: {},
+    },
+    placeholder: "Compose an epic...",
+    theme: "snow",
+    content: "",
 };
 
 const contentValue = ref(boardStore.BoardContent);
 
 function updateContent() {
-  boardStore.updateBoardContent(contentValue.value);
+    boardStore.updateBoardContent(contentValue.value);
 }
 </script>
 
-<style lang="scss" scoped>
-::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
-  background-color: hsl(var(--b3)); /* 또는 트랙에 추가한다 */
-}
-/* 썸(thumb) 추가 */
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--p));
-}
-</style>
+<style lang="scss" scoped></style>

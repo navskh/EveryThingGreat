@@ -1,8 +1,10 @@
 <template>
-    <div class="w-[75%] min-w-[1000px] h-full overflow-y-auto">
+    <div class="LIST w-[75%] min-w-[1000px] h-full overflow-y-auto">
         <div class="CONTAINER flex flex-col items-center justify-center pb-4">
+            <div class="w-full">
+                <commit-table></commit-table>
+            </div>
             <div class="TITLE w-full">
-              <commit-table></commit-table>
                 <div class="flex justify-between pr-4 items-center mb-4 mt-8">
                     <h1 class="text-2xl font-bold">카테고리</h1>
                     <span class="text-right"
@@ -73,7 +75,7 @@ import { useRoute, useRouter } from "vue-router";
 import { getBoard, getMaxID } from "../api/post";
 import { useBoardStore } from "@/stores/boardStore";
 import { storeToRefs } from "pinia";
-import CommitTable from '../components/board/CommitTable.vue'
+import CommitTable from "../components/board/CommitTable.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -92,4 +94,22 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.LIST {
+    overflow-x: hidden;
+}
+
+.LIST::-webkit-scrollbar {
+    width: 5px;
+}
+
+.LIST::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    background-color: hsl(var(--p));
+    border-radius: 20px;
+}
+
+.LIST::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0);
+}
+</style>
