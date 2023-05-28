@@ -40,8 +40,11 @@ export async function getBoard() {
     let noticeSample = [];
     boardSnapshot.forEach((board) => {
         const thisData = board.data();
+        console.log(thisData);
         if (thisData.isNotice) {
             noticeSample.push(board.data());
+        } else if (thisData.category == "prayer") {
+            return;
         } else {
             boardSample.push(board.data());
         }
