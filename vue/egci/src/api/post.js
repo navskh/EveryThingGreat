@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import {
     getFirestore,
     collection,
@@ -35,20 +36,32 @@ const board = collection(db, "board");
  * 모든 문서의 정보 가져오기
  */
 export async function getBoard() {
+    const { email } = getAuth().currentUser;
     const boardSnapshot = await getDocs(query(board, orderBy("idx", "desc")));
     let boardSample = [];
     let noticeSample = [];
-    boardSnapshot.forEach((board) => {
-        const thisData = board.data();
-        console.log(thisData);
-        if (thisData.isNotice) {
-            noticeSample.push(board.data());
-        } else if (thisData.category == "prayer") {
-            return;
-        } else {
-            boardSample.push(board.data());
-        }
-    });
+
+    if (email == "navskh@gmail.com") {
+        boardSnapshot.forEach((board) => {
+            const thisData = board.data();
+            if (thisData.isNotice) {
+                noticeSample.push(board.data());
+            } else {
+                boardSample.push(board.data());
+            }
+        });
+    } else {
+        boardSnapshot.forEach((board) => {
+            const thisData = board.data();
+            if (thisData.isNotice) {
+                return;
+            } else if (thisData.category == "prayer") {
+                return;
+            } else {
+                boardSample.push(board.data());
+            }
+        });
+    }
 
     return { noticeSample, boardSample };
 }
