@@ -21,7 +21,11 @@ import { ref } from "vue";
 import { useBoardStore } from "@/stores/boardStore";
 
 const boardStore = useBoardStore();
-
+// Add fonts to whitelist
+var Font = Quill.import("formats/font");
+// We do not add Aref Ruqaa since it is the default
+Font.whitelist = ["D2Coding", "roboto"];
+Quill.register(Font, true);
 Quill.register("modules/markdownShortcuts", MarkdownShortcuts);
 
 const toolbarOptions = [
