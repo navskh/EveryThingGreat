@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[75%] pb-1 pt-4">
+    <div class="w-[60%] pb-1 pt-4">
         <h1 class="font-bold text-3xl py-3">
             <input
                 type="text"
@@ -63,7 +63,7 @@ import { setBoard, getMaxID } from "@/api/post";
 import { sweetalert } from "@/assets/common";
 import { useRoute, useRouter } from "vue-router";
 import menuCategory from "../assets/category";
-
+import { getAuth } from "@firebase/auth";
 const route = useRoute();
 const router = useRouter();
 
@@ -76,8 +76,9 @@ const formatDate = () => {
     return thisData;
 };
 
+const user = getAuth().currentUser.email.split("@")[0];
 const headTitle = ref("");
-const author = ref("");
+const author = ref(user);
 const category = ref("");
 const isNotice = ref(false);
 

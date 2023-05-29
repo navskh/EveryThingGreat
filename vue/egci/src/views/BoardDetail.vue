@@ -1,5 +1,7 @@
 <template>
-    <div class="w-[80%] h-[calc(100vh - 20px)] px-1 py-2 bg-base-100">
+    <div
+        class="w-[100%] md:w-[80%] h-[calc(100vh - 20px)] px-1 py-2 bg-base-100"
+    >
         <div
             class="DETAIL max-w-[calc(1500px-18rem)] h-full pb-1 overflow-y-scroll pr-3"
             @scroll="showTopBtn"
@@ -99,11 +101,13 @@ const doDelete = async () => {
 .DETAIL::-webkit-scrollbar {
     width: 5px;
 }
+
 .DETAIL::-webkit-scrollbar-thumb {
     background-clip: padding-box;
     background-color: hsl(var(--p));
     border-radius: 20px;
 }
+
 .DETAIL::-webkit-scrollbar-track {
     background-color: rgba(255, 255, 255, 0);
 }
