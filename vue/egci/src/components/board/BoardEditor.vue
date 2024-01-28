@@ -6,7 +6,7 @@
             :options="options"
             v-model:content="contentValue"
             contentType="html"
-            @update:content="updateContent()"
+            @update:content="handleUpdate"
         />
     </div>
 </template>
@@ -19,8 +19,20 @@ import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import MarkdownShortcuts from "quill-markdown-shortcuts";
 import { ref } from "vue";
 import { useBoardStore } from "@/stores/boardStore";
+const props = defineProps({
+    content: {
+        type: String,
+        default: "",
+    },
+});
 
-const boardStore = useBoardStore();
+const contentValue = ref(props.content);
+
+const emit = defineEmits(["update"]);
+const handleUpdate = () => {
+    emit("update", contentValue.value);
+};
+
 // Add fonts to whitelist
 var Font = Quill.import("formats/font");
 // We do not add Aref Ruqaa since it is the default
@@ -58,11 +70,7 @@ const options = {
     content: "",
 };
 
-const contentValue = ref(boardStore.BoardContent);
 
-function updateContent() {
-    boardStore.updateBoardContent(contentValue.value);
-}
 </script>
 
 <style lang="scss" scoped></style>

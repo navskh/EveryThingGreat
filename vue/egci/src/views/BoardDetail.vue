@@ -73,9 +73,6 @@ const goEdit = () => {
         params: {
             id: id,
         },
-        query: {
-            board: JSON.stringify(board.value),
-        },
     });
 };
 

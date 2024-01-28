@@ -49,17 +49,16 @@
                 </button>
             </div>
         </div>
-            <BoardEditor class="EDIT" />
+            <BoardEditor class="EDIT" v-if="content !== null" :content="content" @update="handleUpdate"  />
         </div>
 </template>
 
 <script setup>
 import BoardEditor from "@/components/board/BoardEditor.vue";
 import { FolderArrowDownIcon } from "@heroicons/vue/24/outline";
-import { ref } from "vue";
-import { useBoardStore } from "../stores/boardStore";
+import { ref, watchEffect } from "vue";
 import { BoardModel } from "@/model/board";
-import { setBoard, getMaxID, updateBoard } from "@/api/post";
+import {  updateBoard, getBoardByIdx } from "@/api/post";
 import { sweetalert } from "@/assets/common";
 import { useRoute, useRouter } from "vue-router";
 import menuCategory from "../assets/category";
@@ -67,9 +66,30 @@ import menuCategory from "../assets/category";
 const route = useRoute();
 const router = useRouter();
 
-let data = JSON.parse(route.query.board);
-const boardStore = useBoardStore();
-boardStore.updateBoardContent(data.content);
+// let data = JSON.parse(route.query.board);
+const headTitle = ref("");
+const author = ref("");
+const category = ref("");
+const isNotice = ref(false);
+const content = ref(null);
+const id = route.params.id;
+const crDate = ref("");
+const fetch = async () => {
+    let data = await getBoardByIdx(id);
+    content.value = data.content;
+    headTitle.value = data.title;
+    author.value = data.author;
+    category.value = data.category;
+    isNotice.value = data.isNotice;
+    crDate.value = data.crDate;
+};
+
+watchEffect(fetch);
+
+const handleUpdate = (value) => {
+    content.value = value;
+};
+
 
 const formatDate = () => {
     var dateData = new Date().toISOString();
@@ -77,26 +97,20 @@ const formatDate = () => {
     return thisData;
 };
 
-const headTitle = ref(data?.title);
-const author = ref(data?.author);
-const category = ref(data?.category);
-const isNotice = ref(data?.isNotice ?? false);
 
 const doSave = async () => {
-    let crDate = data.crDate;
-
     const board = new BoardModel({
-        idx: data.idx,
+        idx: id,
         title: headTitle.value,
-        content: boardStore.BoardContent,
+        content: content.value,
         author: author.value,
-        crDate: crDate,
+        crDate: crDate.value,
         category: category.value,
         modDate: new Date().toLocaleString(),
         isNotice: isNotice.value,
     });
 
-    const result = await updateBoard(data.idx, board);
+    const result = await updateBoard(id, board);
     if (result == "success") {
         sweetalert("글이 등록되었습니다!", "success", function () {
             router.push({ name: "main", params: { nav: "" } });

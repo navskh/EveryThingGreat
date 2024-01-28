@@ -49,26 +49,21 @@
                 </button>
             </div>
         </div>
-        <BoardEditor class="prose" />
+        <BoardEditor class="prose" @update="updateHandler" />
     </div>
 </template>
 
 <script setup>
 import BoardEditor from "@/components/board/BoardEditor.vue";
 import { FolderArrowDownIcon } from "@heroicons/vue/24/outline";
-import { ref, watchEffect } from "vue";
-import { useBoardStore } from "../stores/boardStore";
+import { ref } from "vue";
 import { BoardModel } from "@/model/board";
 import { setBoard, getMaxID } from "@/api/post";
 import { sweetalert } from "@/assets/common";
-import { useRoute, useRouter } from "vue-router";
+import {  useRouter } from "vue-router";
 import menuCategory from "../assets/category";
 import { getAuth } from "@firebase/auth";
-const route = useRoute();
 const router = useRouter();
-
-const boardStore = useBoardStore();
-boardStore.updateBoardContent("");
 
 const formatDate = () => {
     var dateData = new Date().toISOString();
@@ -81,16 +76,21 @@ const headTitle = ref("");
 const author = ref(user);
 const category = ref("");
 const isNotice = ref(false);
+const content = ref("");
+
+const updateHandler = (value) => {
+    content.value = value;
+};
+
 
 const doSave = async () => {
     const maxId = await getMaxID();
-
     let crDate = new Date().toLocaleString();
 
     const board = new BoardModel({
         idx: maxId,
         title: headTitle.value,
-        content: boardStore.BoardContent,
+        content: content.value,
         author: author.value,
         crDate: crDate,
         category: category.value,
@@ -98,7 +98,6 @@ const doSave = async () => {
         isNotice: isNotice.value,
     });
 
-    console.log(board);
     const result = await setBoard(board);
     if (result) {
         sweetalert("글이 등록되었습니다!", "success", function () {

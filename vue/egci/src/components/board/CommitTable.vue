@@ -83,7 +83,7 @@ const init = async () => {
     }
 
     sampleDate.value = dateArr.reverse();
-    console.log(sampleDate.value);
+    // console.log(sampleDate.value);
 };
 
 init();
